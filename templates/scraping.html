@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>Lista Scraping</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <script src="https://kit.fontawesome.com/174871867f.js" crossorigin="anonymous"></script>
+    <!-- href="/static/css/style.css"-->
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/style.css')}}" >
+
+</head>
+<center>
+<div class="container">
+    <h1>Realizando Scraping a la pagina de Deportes as México</h1>
+    <h2>Clasificación de la liga Mexicana de Futbol</h2>
+    <script>
+        var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        var f=new Date();
+        document.write(f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
+    </script>
+    <h4>Python (Flask, Pandas, Requests y BeautifulSoup)</h4>
+    <body>
+        <div class="table-responsive">
+            <table >
+<!--                 <thead>
+                    <tr>
+                        {% for col in colnames %}
+                        <th>{{ col }}</th>
+                        <th class="scraping">{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead> -->
+                <thead class="thead-dark">
+                    <tr id="row">
+                        {% for col in colnames %}
+                        <!-- <th>{{ col }}</th> -->
+                        <th class="scraping">{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                 </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        {% for col in colnames %}
+                            {% if col=="Escudo" %}
+                                <td align="center" > <img src= "{{ record[col] }}" > </td>
+                            {% elif col=="Puntos" %}
+                                <td align="center" > {{ record[col] }} </td>    
+                            {% else %}
+                                <td>{{ record[col] }}</td>
+                            {% endif %}    
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</div>
+</center>
+</html>

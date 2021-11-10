@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<!-- <meta charset="utf-8"> -->
+		<!-- <meta content="width=device-width, initial-scale=1.0" name="viewport"> -->
+	  
+		<title>CRUD Python, Flask y Mongodb</title>
+		<script src="https://kit.fontawesome.com/174871867f.js" crossorigin="anonymous"></script>
+		<!-- href="/static/css/style.css"-->
+		<link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/style.css')}}" >
+		<link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/emoji.css')}}" >
+		<script src="{{ url_for('static',filename='js/twemoji.min.js')}}"></script>  
+		<script src="{{ url_for('static',filename='js/emoji.js')}}"></script>
+	</head>
+<body>
+	<h1>{{ h }}</h1>
+	<ul>
+		<li><a href="/list" class="{{ a1 }}">Todo</a></li>
+		<li><a href="/" class="{{ a2 }}">Incompleto</a></li>
+		<li><a href="/completed" class="{{ a3 }}">Completo</a></li>
+	</ul>
+	<hr>
+	{% if todos[0] %}
+	<div span="right">
+	<form action="/search"	method="GET" >
+		<table class="none" id="close">
+		<tr>
+		<td></td><td></td>
+		<td><big><b>Referencia de busqueda:</b></big></td>
+		<td><select name="refer" required>
+			<option value="nombre">Nombre</option>
+			<option value="email">Email</option>
+			<option value="celular">Celular</option>
+			<option value="id_tipo">Tipo</option>
+		</select></td>
+		<td><input type="text" name="key" placeholder="Valor a buscar" size="15" /></td>
+		<td><button type="submit">Buscar</button></td>
+		</tr>
+		</table>
+	</form>
+	</div>
+	<b><big>To-Do LIST :</big></b>
+	<div class="table-responsive">
+	   <table>
+		   <thead class="thead-dark">
+	          <tr id="row">
+	    	      <th class="ocupado">Ocupado</th>
+	    	      <th class="nombre">Nombre</th>
+	    	      <th class="email">Email</th>
+	    	      <th class="celular">Celular</th>
+	    	      <th class="id_tipo">Tipo</th>
+		      <th class="func1"></th>
+		      <th class="func2"></th>
+	          </tr>
+	       </thead>
+	{% for todo in todos %}
+		   <tr class="datas">
+			   <td align="center"><a href="./done?_id={{ todo['_id'] }}"><input type="image" src="static/img/crud/yes.png" alt="Submit ME"></a></td>
+			   <td class="nombre">{{ todo["nombre"] }}</td>
+			   <td class="email">{{ todo["email"] }}</td>
+			   <td class="celular">{{ todo["celular"] }}</td>
+			   <td class="tipo">{{ todo["id_tipo"] }}</td>
+			   <td style=" border: inset 0pt" class="func1" align="center"><a href="./remove?_id={{ todo['_id'] }}"><button type="submit"><i class="fas fa-trash-alt"></i></button></a></td>
+			   <td style=" border: inset 0pt" class="func1" align="center"><a href="./update?_id={{ todo['_id'] }}"><button type="submit"><i class="fas fa-pencil-alt"></i></button></a></td>
+		   </tr>
+	{% endfor %}
+	   </table>
+	</div>   
+	{% else %}
+		<h4>No existen registros en la Lista !!!</h4>
+	{% endif %}
+	<hr/>
+	<form action="/action" method="POST">
+	<table class="none">
+		<tr>
+			<td><b><big><label>Agregar Registro : </label></big></b></td>
+		</tr>
+		<tr>
+		<td><input type="text" name="nombre" placeholder="Nombre" /></td>
+		<td><textarea name="email" rows="1" cols="30" placeholder="Email..." required></textarea></td>
+		<td><input type="text" name="celular" placeholder="Celular" /></td>
+		<td><input type="text" name="id_tipo" placeholder="Tipo" /></td>
+		<td><button type="submit"> Guardar </button></td>
+		</tr>
+	</form>
+	</table>
+	<script>
+
+	</script>
+</body>
+</html>
